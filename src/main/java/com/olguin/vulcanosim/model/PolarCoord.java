@@ -21,7 +21,7 @@ public class PolarCoord {
 	public boolean equals(Object anotherPolarCoord) {
 		if (anotherPolarCoord instanceof PolarCoord) {
 			PolarCoord another = (PolarCoord) anotherPolarCoord;
-			return (this.getRadius() == another.getRadius() && (Math.abs(this.getAngularPosInRads()-another.getAngularPosInRads()) <= Planet.PRECISION_DELTA));
+			return (this.getRadius() == another.getRadius() && (Math.abs(this.getAngularPosInRads()-another.getAngularPosInRads()) <= SolarSystem.PRECISION_DELTA));
 		}
 		return false;
 	}

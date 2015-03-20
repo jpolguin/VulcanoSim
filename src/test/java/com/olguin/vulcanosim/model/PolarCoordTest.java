@@ -36,7 +36,7 @@ public class PolarCoordTest {
 		
 		PolarCoord polarCoord = new PolarCoord(500, PolarCoord.PI_4);
 		
-		CartesianCoord pointIn45Degree500radius = new CartesianCoord(353.553,353.553);
+		CartesianCoord pointIn45Degree500radius = new CartesianCoord(353.5533905,353.5533905);
 		
 		Assert.assertEquals(pointIn45Degree500radius,polarCoord.toCartesianCoord());
 	}
@@ -80,6 +80,17 @@ public class PolarCoordTest {
 		CartesianCoord pointIn270Degree500radius = new CartesianCoord(0, -500);
 		
 		Assert.assertEquals(pointIn270Degree500radius,polarCoord.toCartesianCoord());
+	}
+	
+	
+	@Test
+	public void testPolarCoordZEROToCartesianPoint() {
+		
+		PolarCoord polarCoord = new PolarCoord(0,0);
+		
+		CartesianCoord point00 = new CartesianCoord(0, 0);
+		
+		Assert.assertEquals(point00,polarCoord.toCartesianCoord());
 	}
 	
 	

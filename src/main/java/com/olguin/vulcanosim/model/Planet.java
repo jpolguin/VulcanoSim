@@ -1,10 +1,9 @@
 package com.olguin.vulcanosim.model;
 
-import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
+
 
 public class Planet {
 
-	public static final double PRECISION_DELTA = 0.001;
 	public static final double ANGULAR_ONE_GRADE_CLOCKWISE = -PolarCoord.PI_180;
 	public static final double ANGULAR_THREE_GRADE_CLOCKWISE = -PolarCoord.PI_180 * 3;
 	public static final double ANGULAR_FIVE_GRADE_COUNTERCLOCKWISE = PolarCoord.PI_180 * 5;

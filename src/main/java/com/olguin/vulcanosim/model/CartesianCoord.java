@@ -22,7 +22,7 @@ public class CartesianCoord {
 	public boolean equals(Object anotherPoint) {
 		if (anotherPoint instanceof CartesianCoord) {
 			CartesianCoord point = (CartesianCoord)anotherPoint;
-			return (Math.abs(this.x()-point.x())<= Planet.PRECISION_DELTA) && (Math.abs(this.y()-point.y())<= Planet.PRECISION_DELTA);
+			return (Math.abs(this.x()-point.x())<= SolarSystem.PRECISION_DELTA) && (Math.abs(this.y()-point.y())<= SolarSystem.PRECISION_DELTA);
 		}
 		return false;
 	}
