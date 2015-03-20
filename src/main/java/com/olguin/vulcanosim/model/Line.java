@@ -4,17 +4,18 @@ public class Line {
 	private double _mSlope;
 	private double _bShift;
     private boolean _vertical = false;
-    private Double _verticalX;
+    private Double _xCoordFromVerticalLine;
 	
 	
 
 	public Line(CartesianCoord coord1, CartesianCoord coord2) {
-		 if (!sameXCoord(coord1, coord2)) {
-		  _mSlope  = (coord2.y() - coord1.y()) / (coord2.x() - coord1.x());
-		  _bShift = coord1.y() - (_mSlope * coord1.x());
-		 } else {
+		
+		 if (sameXCoord(coord1, coord2)) {  //Same X Coord means a vertical line
 			 _vertical = true;
-			 _verticalX = coord1.x();	
+			 _xCoordFromVerticalLine = coord1.x();			
+		 } else {   //Regular, non vertical line
+			  _mSlope  = (coord2.y() - coord1.y()) / (coord2.x() - coord1.x());
+			  _bShift = coord1.y() - (_mSlope * coord1.x());
 			 
 		 }
 	}
@@ -49,10 +50,20 @@ public class Line {
 	}
 
 	public boolean pointAligned(CartesianCoord point) {
-		 return equalsOrCloseEnough(point.y(),apply(point.x()));
+		if (!isVertical()) {
+		  return equalsOrCloseEnough(point.y(),apply(point.x()));
+		} else {
+			return equalsOrCloseEnough(point.x(), getXCoordFromVerticalLine());
+		}
 		
 	
 	}
+
+	private double getXCoordFromVerticalLine() {
+		
+		return _xCoordFromVerticalLine;
+	}
+
 
 	private boolean equalsOrCloseEnough(double val1, double val2) {
 		

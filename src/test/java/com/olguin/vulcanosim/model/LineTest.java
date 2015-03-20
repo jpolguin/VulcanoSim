@@ -50,9 +50,33 @@ public class LineTest {
 	}
 	
 	@Test 
-	public void testCreateVerticalLine() {
+	public void testCreateVerticalLineInXZero() {
 		CartesianCoord coord1 = new CartesianCoord(0, 0);
 		CartesianCoord coord2 = new CartesianCoord(0, 5);
+		Line line1 = new Line(coord1,coord2);
+		
+		 try {
+		   line1.getMSlope();
+		     Assert.fail("It should have thrown VerticalLineException");
+		 } catch (VerticalLineException e) {
+			 
+		 }
+		 
+
+		 try {
+		   line1.apply(coord1.x());
+		 Assert.fail("It should have thrown VerticalLineException");
+		 } catch (VerticalLineException e) {
+			 
+		 }
+		
+		
+	}
+	
+	@Test 
+	public void testCreateVerticalLineInXNOTZero() {
+		CartesianCoord coord1 = new CartesianCoord(12, 0);
+		CartesianCoord coord2 = new CartesianCoord(12, 5);
 		Line line1 = new Line(coord1,coord2);
 		
 		 try {
@@ -92,16 +116,55 @@ public class LineTest {
 		CartesianCoord coord1 = new CartesianCoord(5, 2);
 		CartesianCoord coord2 = new CartesianCoord(-3, -3);
 		CartesianCoord coord3 = new CartesianCoord(8, 3.875);
+		CartesianCoord coordZero = new CartesianCoord(0,0);
 		
 		CartesianCoord coordOut = new CartesianCoord(-2, 2);
 		
 		Line line = new Line(coord1,coord2);
 		
 		Assert.assertTrue(line.pointAligned(coord1));
-		Assert.assertTrue(line.pointAligned(coord2));
-		Assert.assertFalse(line.pointAligned(coordOut));
+		Assert.assertTrue(line.pointAligned(coord2));		
 		Assert.assertTrue(line.pointAligned(coord3));
 		
+		Assert.assertFalse(line.pointAligned(coordOut));
+		Assert.assertFalse(line.pointAligned(coordZero));
+		
+	}
+	
+	@Test
+	public void testVerticalPointXNOTZeroAligment() {
+		CartesianCoord coord1 = new CartesianCoord(7, 0);
+		CartesianCoord coord2 = new CartesianCoord(7, 5);
+		Line line = new Line(coord1,coord2);
+		
+		CartesianCoord coordIn = new CartesianCoord(7, 140);
+		CartesianCoord coordOut = new CartesianCoord(-2, 5);
+		
+		CartesianCoord coordZero = new CartesianCoord(0,0);
+		
+		Assert.assertTrue(line.pointAligned(coord1));
+		Assert.assertTrue(line.pointAligned(coord2));
+		Assert.assertTrue(line.pointAligned(coordIn));
+		
+		Assert.assertFalse(line.pointAligned(coordOut));
+		Assert.assertFalse(line.pointAligned(coordZero));
+		
+		
+		
+	}
+	
+	
+	@Test
+	public void testLineThatPassesThroughZeroAligment() {
+		CartesianCoord coord1 = new CartesianCoord(-3, 3);
+		CartesianCoord coord2 = new CartesianCoord(-5, 5);
+		Line line = new Line(coord1,coord2);
+		
+		CartesianCoord coordZero = new CartesianCoord(0,0);
+		
+		Assert.assertTrue(line.pointAligned(coord1));
+		Assert.assertTrue(line.pointAligned(coord2));
+		Assert.assertTrue(line.pointAligned(coordZero));
 	}
 	
 }
