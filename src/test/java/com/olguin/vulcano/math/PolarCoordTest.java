@@ -1,6 +1,9 @@
-package com.olguin.vulcanosim.model;
+package com.olguin.vulcano.math;
 
 import org.junit.Test;
+
+import com.olguin.vulcano.math.CartesianCoord;
+import com.olguin.vulcano.math.PolarCoord;
 
 import junit.framework.Assert;
 

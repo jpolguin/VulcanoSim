@@ -1,7 +1,12 @@
-package com.olguin.vulcanosim.model;
+package com.olguin.vulcano.math;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.olguin.vulcano.math.CartesianCoord;
+import com.olguin.vulcano.math.Line;
+import com.olguin.vulcano.math.VerticalLineException;
+import com.olguin.vulcanosim.model.ISolarSystem;
 
 public class LineTest {
 
@@ -12,10 +17,10 @@ public class LineTest {
 		CartesianCoord coord2 = new CartesianCoord(-3, -3);
 		Line line1 = new Line(coord1,coord2);
 		
-		Assert.assertEquals(0.625, line1.getMSlope(), SolarSystem.PRECISION_DELTA);		
-		Assert.assertEquals(-1.125, line1.getBShift(), SolarSystem.PRECISION_DELTA);
+		Assert.assertEquals(0.625, line1.getMSlope(), ISolarSystem.PRECISION_DELTA);		
+		Assert.assertEquals(-1.125, line1.getBShift(), ISolarSystem.PRECISION_DELTA);
 		
-		Assert.assertEquals(coord1.y(), line1.apply(coord1.x()),SolarSystem.PRECISION_DELTA);
+		Assert.assertEquals(coord1.y(), line1.apply(coord1.x()),ISolarSystem.PRECISION_DELTA);
 		
 	}
 	
@@ -26,11 +31,11 @@ public class LineTest {
 		CartesianCoord coord2 = new CartesianCoord(5, -5);
 		Line line1 = new Line(coord1,coord2);
 		
-		Assert.assertEquals(-0.66666666, line1.getMSlope(), SolarSystem.PRECISION_DELTA);
+		Assert.assertEquals(-0.66666666, line1.getMSlope(), ISolarSystem.PRECISION_DELTA);
 		
-		Assert.assertEquals(-1.66666666, line1.getBShift(), SolarSystem.PRECISION_DELTA);
+		Assert.assertEquals(-1.66666666, line1.getBShift(), ISolarSystem.PRECISION_DELTA);
 		
-		Assert.assertEquals(coord1.y(), line1.apply(coord1.x()),SolarSystem.PRECISION_DELTA);
+		Assert.assertEquals(coord1.y(), line1.apply(coord1.x()),ISolarSystem.PRECISION_DELTA);
 		
 	}
 	
@@ -41,11 +46,11 @@ public class LineTest {
 		CartesianCoord coord2 = new CartesianCoord(-5, 5);
 		Line line1 = new Line(coord1,coord2);
 		
-		Assert.assertEquals(-1, line1.getMSlope(), SolarSystem.PRECISION_DELTA);
+		Assert.assertEquals(-1, line1.getMSlope(), ISolarSystem.PRECISION_DELTA);
 		
-		Assert.assertEquals(0, line1.getBShift(), SolarSystem.PRECISION_DELTA);
+		Assert.assertEquals(0, line1.getBShift(), ISolarSystem.PRECISION_DELTA);
 		
-		Assert.assertEquals(coord1.y(), line1.apply(coord1.x()),SolarSystem.PRECISION_DELTA);
+		Assert.assertEquals(coord1.y(), line1.apply(coord1.x()),ISolarSystem.PRECISION_DELTA);
 		
 	}
 	
@@ -104,8 +109,8 @@ public class LineTest {
 		CartesianCoord coord1 = new CartesianCoord(5, 2);
 		CartesianCoord coord2 = new CartesianCoord(-3, -3);
 		Line line1 = new Line(coord1,coord2);
-		Assert.assertEquals(coord1.y(), line1.apply(coord1.x()),SolarSystem.PRECISION_DELTA);
-		Assert.assertEquals(coord2.y(), line1.apply(coord2.x()),SolarSystem.PRECISION_DELTA);
+		Assert.assertEquals(coord1.y(), line1.apply(coord1.x()),ISolarSystem.PRECISION_DELTA);
+		Assert.assertEquals(coord2.y(), line1.apply(coord2.x()),ISolarSystem.PRECISION_DELTA);
 		
 	}
 	

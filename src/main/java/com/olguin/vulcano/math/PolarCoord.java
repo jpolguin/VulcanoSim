@@ -1,12 +1,17 @@
-package com.olguin.vulcanosim.model;
+package com.olguin.vulcano.math;
+
+import com.olguin.vulcanosim.model.ISolarSystem;
 
 public class PolarCoord {
 	public static final double PI_2 = Math.PI/2;
 	public static final double PI_180 =  Math.PI/(double)180;
 	public static final double PI_4 = Math.PI/4.0;
+	public static final double PI_6 = Math.PI/6.0;
 	public static final double TWO_PI = Math.PI * 2.0;
 	public static final double PI = Math.PI;
 	public static final double _3PI_2 =  (Math.PI*3.0)/2.0;
+	public static final double _0PI =0.0;
+	
 	private long _radius;
 	private double _thetaInRads;
 	
@@ -21,7 +26,7 @@ public class PolarCoord {
 	public boolean equals(Object anotherPolarCoord) {
 		if (anotherPolarCoord instanceof PolarCoord) {
 			PolarCoord another = (PolarCoord) anotherPolarCoord;
-			return (this.getRadius() == another.getRadius() && (Math.abs(this.getAngularPosInRads()-another.getAngularPosInRads()) <= SolarSystem.PRECISION_DELTA));
+			return (this.getRadius() == another.getRadius() && (Math.abs(this.getAngularPosInRads()-another.getAngularPosInRads()) <= ISolarSystem.PRECISION_DELTA));
 		}
 		return false;
 	}

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SolarSystem {
-	
-	public static final double PRECISION_DELTA = 0.0001;
+import com.olguin.vulcano.math.Line;
+import com.olguin.vulcano.math.PolarCoord;
+import com.olguin.vulcano.math.Triangle;
 
+public class SolarSystem implements ISolarSystem {
+	
 	private List<Planet> _planets = new ArrayList<>();
 	private PolarCoord _sun = new PolarCoord(0, 0);
 
@@ -17,11 +19,15 @@ public class SolarSystem {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.olguin.vulcanosim.model.ISolarSystem#numberOfplanets()
+	 */
+	@Override
 	public int numberOfplanets() {
 		return _planets.size();
 	}
 
-	public static SolarSystem createVulcanoSystem() {
+	public static ISolarSystem createVulcanoSystem() {
 		double initialAngularPosition = PolarCoord.PI_2;
 		
 		Planet planetFerengi = new Planet(new PolarCoord(500, initialAngularPosition),  Planet.ANGULAR_ONE_GRADE_CLOCKWISE);
@@ -31,29 +37,77 @@ public class SolarSystem {
 
 		Planet[] planets = new Planet[] {planetFerengi,planetVulcano, planetBetasoide};
 		
-		SolarSystem solarSystem = new SolarSystem(planets);
+		ISolarSystem solarSystem = new SolarSystem(planets);
 		return solarSystem;
 	}
 
    	
 	
+	/* (non-Javadoc)
+	 * @see com.olguin.vulcanosim.model.ISolarSystem#planetsAlignedAt(long)
+	 */
+	@Override
 	public boolean planetsAlignedAt(long day) {
 		
 		if(numberOfplanets()<=2) {
 			return true;
 		} else {
-             Planet firstPlanet = getPlanets().get(0);
-			 Planet secondPlanet = getPlanets().get(1);
-			PolarCoord positionFirstPlanet = firstPlanet.positionAtDay(day);
-			PolarCoord positionSecondPlanet = secondPlanet.positionAtDay(day);
-			Line lineFirstTwoPlanets = new Line (positionFirstPlanet.toCartesianCoord(), positionSecondPlanet.toCartesianCoord() );		
+            Line lineFirstTwoPlanets = createLineBetweenFirstTwoPlanets(day);
+			boolean aligned = true;
+			for(Planet planet: getPlanets()) {
+				PolarCoord planetPosition = planet.positionAtDay(day);
+				if (!lineFirstTwoPlanets.pointAligned(planetPosition)) {
+					aligned = false;
+					break;
+				}
+			}
+			return aligned;
 		}
 	
-		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.olguin.vulcanosim.model.ISolarSystem#solarAligmentAt(long)
+	 */
+	@Override
+	public boolean solarAligmentAt(long day) {
+		
+		return planetsAlignedAt(day) && sunAligment(day);
+	}
+
+	
+	
+	private boolean sunAligment(long day) {
+		if(numberOfplanets()<=1) {
+			return true;
+		} else {
+			 Line lineFirstTwoPlanets = createLineBetweenFirstTwoPlanets(day);
+			 return lineFirstTwoPlanets.pointAligned(_sun);
+		}
+		
+	}
+	
+	private Line createLineBetweenFirstTwoPlanets(long day) {
+		Planet firstPlanet = getPlanets().get(0);
+		Planet secondPlanet = getPlanets().get(1);
+		PolarCoord positionFirstPlanet = firstPlanet.positionAtDay(day);
+		PolarCoord positionSecondPlanet = secondPlanet.positionAtDay(day);
+		Line lineFirstTwoPlanets = new Line (positionFirstPlanet, positionSecondPlanet );
+		return lineFirstTwoPlanets;
 	}
 
 	
 	private List<Planet> getPlanets() {
 		return _planets;
+	}
+
+	@Override
+	public boolean sunInsideTriangleAtDay(long day) {
+		if (numberOfplanets()<=2) {
+			return false;
+		}
+		
+		Triangle firstThreePlanetsTriangle = new Triangle(getPlanets().get(0).positionAtDay(day), getPlanets().get(1).positionAtDay(day), getPlanets().get(2).positionAtDay(day));
+		return firstThreePlanetsTriangle.pointInside(_sun.toCartesianCoord());
 	}
 }

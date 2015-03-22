@@ -3,6 +3,8 @@ package com.olguin.vulcanosim.model;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.olguin.vulcano.math.PolarCoord;
+
 
 
 public class PlanetTest {
@@ -14,7 +16,7 @@ public class PlanetTest {
 		Planet planetFerengi = new Planet(initialPosition, -PolarCoord.PI_180  );
 		Assert.assertNotNull(planetFerengi);
 		Assert.assertEquals(new PolarCoord(500, PolarCoord.PI_2), planetFerengi.getInitialPosition());
-		Assert.assertEquals(-PolarCoord.PI_180,planetFerengi.getAngularVelocity(), SolarSystem.PRECISION_DELTA);
+		Assert.assertEquals(-PolarCoord.PI_180,planetFerengi.getAngularVelocity(), ISolarSystem.PRECISION_DELTA);
 	}
 	
 	
@@ -52,7 +54,7 @@ public class PlanetTest {
 		Planet planetFerengi = new Planet(initialPosition,  Planet.ANGULAR_ONE_GRADE_CLOCKWISE   );
 		
 		
-		Assert.assertEquals(initialAngularPosition - PolarCoord.TWO_PI, planetFerengi.positionAtDay(planetFerengi.revolution()).getAngularPosInRads(), SolarSystem.PRECISION_DELTA );
+		Assert.assertEquals(initialAngularPosition - PolarCoord.TWO_PI, planetFerengi.positionAtDay(planetFerengi.revolution()).getAngularPosInRads(), ISolarSystem.PRECISION_DELTA );
 
 	}
 	
@@ -64,7 +66,7 @@ public class PlanetTest {
 		Planet planetVulcano = new Planet(initialPosition,  Planet.ANGULAR_FIVE_GRADE_COUNTERCLOCKWISE   );
 		
 		
-		Assert.assertEquals(initialAngularPosition + PolarCoord.TWO_PI, planetVulcano.positionAtDay(planetVulcano.revolution()).getAngularPosInRads(), SolarSystem.PRECISION_DELTA );
+		Assert.assertEquals(initialAngularPosition + PolarCoord.TWO_PI, planetVulcano.positionAtDay(planetVulcano.revolution()).getAngularPosInRads(), ISolarSystem.PRECISION_DELTA );
 
 	}
 	

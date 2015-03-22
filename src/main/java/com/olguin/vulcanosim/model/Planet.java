@@ -1,5 +1,7 @@
 package com.olguin.vulcanosim.model;
 
+import com.olguin.vulcano.math.PolarCoord;
+
 
 
 public class Planet {

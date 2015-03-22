@@ -1,4 +1,6 @@
-package com.olguin.vulcanosim.model;
+package com.olguin.vulcano.math;
+
+import com.olguin.vulcanosim.model.ISolarSystem;
 
 public class Line {
 	private double _mSlope;
@@ -8,7 +10,7 @@ public class Line {
 	
 	
 
-	public Line(CartesianCoord coord1, CartesianCoord coord2) {
+	protected Line(CartesianCoord coord1, CartesianCoord coord2) {
 		
 		 if (sameXCoord(coord1, coord2)) {  //Same X Coord means a vertical line
 			 _vertical = true;
@@ -22,6 +24,12 @@ public class Line {
 
 
 	
+	public Line(PolarCoord polarPoint1, PolarCoord polarPoint2) {
+         this(polarPoint1.toCartesianCoord(),polarPoint2.toCartesianCoord());
+	}
+
+
+
 	public double apply(double x) {
 		if (!isVertical()) {
 		   return (_mSlope*x + _bShift);
@@ -49,7 +57,7 @@ public class Line {
 		return _vertical;
 	}
 
-	public boolean pointAligned(CartesianCoord point) {
+	protected boolean pointAligned(CartesianCoord point) {
 		if (!isVertical()) {
 		  return equalsOrCloseEnough(point.y(),apply(point.x()));
 		} else {
@@ -67,11 +75,17 @@ public class Line {
 
 	private boolean equalsOrCloseEnough(double val1, double val2) {
 		
-		return  Math.abs(val2-val1) < SolarSystem.PRECISION_DELTA;
+		return  Math.abs(val2-val1) < ISolarSystem.PRECISION_DELTA;
 	}
 
 	
 	private boolean sameXCoord(CartesianCoord coord1, CartesianCoord coord2) {
 		return equalsOrCloseEnough(coord1.x(), coord2.x());
+	}
+
+
+
+	public boolean pointAligned(PolarCoord polarPoint) {		
+		return pointAligned(polarPoint.toCartesianCoord());
 	}
 }

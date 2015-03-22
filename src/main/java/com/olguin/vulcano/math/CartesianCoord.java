@@ -1,4 +1,6 @@
-package com.olguin.vulcanosim.model;
+package com.olguin.vulcano.math;
+
+import com.olguin.vulcanosim.model.ISolarSystem;
 
 public class CartesianCoord {
 
@@ -22,7 +24,7 @@ public class CartesianCoord {
 	public boolean equals(Object anotherPoint) {
 		if (anotherPoint instanceof CartesianCoord) {
 			CartesianCoord point = (CartesianCoord)anotherPoint;
-			return (Math.abs(this.x()-point.x())<= SolarSystem.PRECISION_DELTA) && (Math.abs(this.y()-point.y())<= SolarSystem.PRECISION_DELTA);
+			return (Math.abs(this.x()-point.x())<= ISolarSystem.PRECISION_DELTA) && (Math.abs(this.y()-point.y())<= ISolarSystem.PRECISION_DELTA);
 		}
 		return false;
 	}
@@ -37,5 +39,9 @@ public class CartesianCoord {
 	@Override
 	public String toString() {
 		return "(" + x()+", "+ y() + ")";
+	}
+
+	public double distance(CartesianCoord p2) {		
+		return Math.sqrt((p2.x()-x())*(p2.x()-x()) + (p2.y() -y())* (p2.y() -y()) );
 	}
 }
