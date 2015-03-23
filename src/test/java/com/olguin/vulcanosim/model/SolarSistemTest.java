@@ -94,7 +94,7 @@ public class SolarSistemTest {
 		Assert.assertTrue(solarSystem.planetsAlignedAt(0));
 		Assert.assertFalse(solarSystem.planetsAlignedAt(1));
 		Assert.assertFalse(solarSystem.planetsAlignedAt(345));	
-		Assert.assertTrue(solarSystem.planetsAlignedAt(planet1.revolution()));
+		Assert.assertTrue(solarSystem.planetsAlignedAt(planet1.revolutionPeriodInDays()));
 		
 	}
 	
@@ -120,11 +120,11 @@ public class SolarSistemTest {
 		Assert.assertFalse(solarSystem.solarAligmentAt(1));
 		Assert.assertFalse(solarSystem.solarAligmentAt(345));	
 		//After one year they meet again in pi/0 pi position
-		Assert.assertTrue(solarSystem.solarAligmentAt(planet1.revolution()));
+		Assert.assertTrue(solarSystem.solarAligmentAt(planet1.revolutionPeriodInDays()));
 		
 		//But Also at half the revolution, they should meet in PI/2 and 3/2 PI
 		
-		Assert.assertTrue(solarSystem.solarAligmentAt(planet1.revolution()/2));
+		Assert.assertTrue(solarSystem.solarAligmentAt(planet1.revolutionPeriodInDays()/2));
 		
 		
 	}
@@ -181,6 +181,101 @@ public class SolarSistemTest {
 		 ISolarSystem vulcanoSystem = SolarSystem.createVulcanoSystem();
 		
 		Assert.assertFalse(vulcanoSystem.sunInsideTriangleAtDay(0));
+	}
+	
+
+
+	@Test
+	public void testWeatherIsDraughtWhenPlanetsAndSunAlignedAllTheTime() {
+		double initialAngularPosition1 = PolarCoord._0PI;
+		double initialAngularPosition2 = PolarCoord.PI;
+		double initialAngularPosition3 = PolarCoord.PI; 
+	
+		Planet planet1 = new Planet(new PolarCoord(563, initialAngularPosition1), PolarCoord.PI_4);
+		Planet planet2 = new Planet(new PolarCoord(6789, initialAngularPosition2),  PolarCoord.PI_4);
+		Planet planet3 = new Planet(new PolarCoord(20567, initialAngularPosition3), PolarCoord.PI_4);
+		
+
+		Planet[] planets = new Planet[] {planet1, planet2, planet3};
+		
+		ISolarSystem solarSystem = new SolarSystem(planets);
+		
+		Assert.assertEquals(Weather.Draught, solarSystem.weatherAtDay(0));
+		Assert.assertEquals(Weather.Draught, solarSystem.weatherAtDay(1));
+		Assert.assertEquals(Weather.Draught, solarSystem.weatherAtDay(2));
+		Assert.assertEquals(Weather.Draught, solarSystem.weatherAtDay(3));
+			
+	}
+	
+	
+	@Test
+	public void testWeatherIsPerfectInTwoPlanetsSystemIfSunIsNotAligned() {
+		double initialAngularPosition1 = PolarCoord.PI_4;
+		double initialAngularPosition2 = PolarCoord._0PI;
+	
+	
+		Planet planet1 = new Planet(new PolarCoord(563, initialAngularPosition1), PolarCoord.PI_4);
+		Planet planet2 = new Planet(new PolarCoord(6789, initialAngularPosition2),  -PolarCoord.PI_2);
+	
+		
+
+		Planet[] planets = new Planet[] {planet1, planet2};
+		
+		ISolarSystem solarSystem = new SolarSystem(planets);
+		
+		Assert.assertEquals(Weather.Perfect, solarSystem.weatherAtDay(0));
+		Assert.assertEquals(Weather.Draught, solarSystem.weatherAtDay(1));
+		Assert.assertEquals(Weather.Perfect, solarSystem.weatherAtDay(2));
+		Assert.assertEquals(Weather.Perfect, solarSystem.weatherAtDay(3));
+		Assert.assertEquals(Weather.Perfect, solarSystem.weatherAtDay(4));
+		Assert.assertEquals(Weather.Draught, solarSystem.weatherAtDay(5));
+		Assert.assertEquals(Weather.Perfect, solarSystem.weatherAtDay(6));
+			
+	}
+	
+
+	@Test
+	public void testWeatherIsRainyWhenSunInsideTheTriangle() {
+		double initialAngularPosition1 = PolarCoord.PI_4;
+		double initialAngularPosition2 = PolarCoord.PI;
+		double initialAngularPosition3 = PolarCoord._3PI_2; 
+	
+		Planet planet1 = new Planet(new PolarCoord(563, initialAngularPosition1), PolarCoord.PI_4);
+		Planet planet2 = new Planet(new PolarCoord(6789, initialAngularPosition2),  PolarCoord.PI_180);
+		Planet planet3 = new Planet(new PolarCoord(20567, initialAngularPosition3), -PolarCoord.PI_180);
+		
+		
+
+		Planet[] planets = new Planet[] {planet1, planet2, planet3};
+		
+		ISolarSystem solarSystem = new SolarSystem(planets);
+		
+		Assert.assertEquals(Weather.Rainny, solarSystem.weatherAtDay(0));
+		Assert.assertEquals(Weather.Regular, solarSystem.weatherAtDay(1));
+		Assert.assertEquals(Weather.Regular, solarSystem.weatherAtDay(7));
+		Assert.assertEquals(Weather.Rainny, solarSystem.weatherAtDay(8));
+		
+			
+	}
+	
+	@Test
+    public void testPerimeter3FirstPlanetsTriangle() {
+		double initialAngularPosition1 = PolarCoord.PI_4;
+		double initialAngularPosition2 = PolarCoord.PI;
+		double initialAngularPosition3 = PolarCoord._3PI_2; 
+	
+		Planet planet1 = new Planet(new PolarCoord(10, initialAngularPosition1), PolarCoord.PI_4);
+		Planet planet2 = new Planet(new PolarCoord(100, initialAngularPosition2),  PolarCoord.PI_180);
+		Planet planet3 = new Planet(new PolarCoord(1000, initialAngularPosition3), -PolarCoord.PI_180);
+		
+        Planet[] planets = new Planet[] {planet1, planet2, planet3};
+		
+		ISolarSystem solarSystem = new SolarSystem(planets);
+		
+		Assert.assertEquals(2119.387757, solarSystem.trianglePerimeterAtDay(0), SolarSystem.PRECISION_DELTA);
+		Assert.assertEquals(2098.335532, solarSystem.trianglePerimeterAtDay(2), SolarSystem.PRECISION_DELTA);
+		Assert.assertEquals(2076.2025, solarSystem.trianglePerimeterAtDay(4), SolarSystem.PRECISION_DELTA);
+		Assert.assertEquals(2070.74729, solarSystem.trianglePerimeterAtDay(10), SolarSystem.PRECISION_DELTA);
 	}
 	
 	

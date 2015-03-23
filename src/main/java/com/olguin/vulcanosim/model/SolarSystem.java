@@ -77,6 +77,49 @@ public class SolarSystem implements ISolarSystem {
 
 	
 	
+
+	@Override
+	public boolean sunInsideTriangleAtDay(long day) {
+		if (numberOfplanets()<=2) {
+			return false;
+		}
+		
+		Triangle firstThreePlanetsTriangle = firstThreePlanetTriangle(day);
+		return firstThreePlanetsTriangle.pointInside(_sun.toCartesianCoord());
+	}
+
+	private Triangle firstThreePlanetTriangle(long day) {
+		return new Triangle(getPlanets().get(0).positionAtDay(day), getPlanets().get(1).positionAtDay(day), getPlanets().get(2).positionAtDay(day));
+	}
+
+	@Override
+	public Weather weatherAtDay(long day) {
+		  if (solarAligmentAt(day)) {
+			 return Weather.Draught;
+		  } else {
+			  if (planetsAlignedAt(day)) {
+				  return Weather.Perfect;
+			  } else {
+				  if (sunInsideTriangleAtDay(day)) {
+					  return Weather.Rainny;
+				  } 
+			  }
+		  }
+         
+		  
+		  return Weather.Regular;
+		
+		
+	}
+	
+	@Override
+	public double trianglePerimeterAtDay(long day) {
+		Triangle firstThreePlanetsTriangle = firstThreePlanetTriangle(day);
+		return firstThreePlanetsTriangle.perimeter();
+	}
+
+	
+	
 	private boolean sunAligment(long day) {
 		if(numberOfplanets()<=1) {
 			return true;
@@ -101,13 +144,7 @@ public class SolarSystem implements ISolarSystem {
 		return _planets;
 	}
 
-	@Override
-	public boolean sunInsideTriangleAtDay(long day) {
-		if (numberOfplanets()<=2) {
-			return false;
-		}
-		
-		Triangle firstThreePlanetsTriangle = new Triangle(getPlanets().get(0).positionAtDay(day), getPlanets().get(1).positionAtDay(day), getPlanets().get(2).positionAtDay(day));
-		return firstThreePlanetsTriangle.pointInside(_sun.toCartesianCoord());
-	}
+	
+	
+	
 }

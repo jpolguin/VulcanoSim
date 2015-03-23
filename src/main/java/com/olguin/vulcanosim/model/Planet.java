@@ -42,7 +42,7 @@ public class Planet {
 		 return new PolarCoord(getInitialPosition().getRadius(), getInitialPosition().getAngularPosInRads() + getAngularVelocity() * day);
 	}
 
-	public long revolution() {
+	public long revolutionPeriodInDays() {
 		
 		return  Math.abs(Math.round(PolarCoord.TWO_PI /getAngularVelocity())) ;
 	}

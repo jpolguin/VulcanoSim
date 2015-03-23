@@ -38,4 +38,18 @@ public interface ISolarSystem {
      */
 	public abstract boolean sunInsideTriangleAtDay(long day);
 
+   /**
+    * Analyze Solar System's condition to forecast possible weather according to orbits relations between planets and Sun
+    * @param day  the day to analyze the solar system conditions
+    * @return the likely weather that the system will have.
+    */
+	public abstract Weather weatherAtDay(long day);
+
+    /**
+     * Return the perimeter of the triangle formed with the first 3 planets of the Solar System
+     * @param day day of the year to calculate the triangle perimeter.
+     * @return the calculated perimeter
+     */
+    public abstract double trianglePerimeterAtDay(long day);
+
 }
