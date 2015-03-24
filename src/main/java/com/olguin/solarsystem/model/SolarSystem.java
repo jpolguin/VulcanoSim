@@ -1,12 +1,12 @@
-package com.olguin.vulcanosim.model;
+package com.olguin.solarsystem.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.olguin.vulcano.math.Line;
-import com.olguin.vulcano.math.PolarCoord;
-import com.olguin.vulcano.math.Triangle;
+import com.olguin.solarsystem.math.Line;
+import com.olguin.solarsystem.math.PolarCoord;
+import com.olguin.solarsystem.math.Triangle;
 
 public class SolarSystem implements ISolarSystem {
 	
@@ -47,14 +47,14 @@ public class SolarSystem implements ISolarSystem {
 	 * @see com.olguin.vulcanosim.model.ISolarSystem#planetsAlignedAt(long)
 	 */
 	@Override
-	public boolean planetsAlignedAt(long day) {
+	public boolean planetsAlignedAt(int day) {
 		
 		if(numberOfplanets()<=2) {
 			return true;
 		} else {
             Line lineFirstTwoPlanets = createLineBetweenFirstTwoPlanets(day);
 			boolean aligned = true;
-			for(Planet planet: getPlanets()) {
+			for(IPlanet planet: getPlanets()) {
 				PolarCoord planetPosition = planet.positionAtDay(day);
 				if (!lineFirstTwoPlanets.pointAligned(planetPosition)) {
 					aligned = false;
@@ -70,7 +70,7 @@ public class SolarSystem implements ISolarSystem {
 	 * @see com.olguin.vulcanosim.model.ISolarSystem#solarAligmentAt(long)
 	 */
 	@Override
-	public boolean solarAligmentAt(long day) {
+	public boolean solarAligmentAt(int day) {
 		
 		return planetsAlignedAt(day) && sunAligment(day);
 	}
@@ -79,7 +79,7 @@ public class SolarSystem implements ISolarSystem {
 	
 
 	@Override
-	public boolean sunInsideTriangleAtDay(long day) {
+	public boolean sunInsideTriangleAtDay(int day) {
 		if (numberOfplanets()<=2) {
 			return false;
 		}
@@ -88,12 +88,12 @@ public class SolarSystem implements ISolarSystem {
 		return firstThreePlanetsTriangle.pointInside(_sun.toCartesianCoord());
 	}
 
-	private Triangle firstThreePlanetTriangle(long day) {
+	private Triangle firstThreePlanetTriangle(int day) {
 		return new Triangle(getPlanets().get(0).positionAtDay(day), getPlanets().get(1).positionAtDay(day), getPlanets().get(2).positionAtDay(day));
 	}
 
 	@Override
-	public Weather weatherAtDay(long day) {
+	public Weather weatherAtDay(int day) {
 		  if (solarAligmentAt(day)) {
 			 return Weather.Draught;
 		  } else {
@@ -113,14 +113,14 @@ public class SolarSystem implements ISolarSystem {
 	}
 	
 	@Override
-	public double trianglePerimeterAtDay(long day) {
+	public double trianglePerimeterAtDay(int day) {
 		Triangle firstThreePlanetsTriangle = firstThreePlanetTriangle(day);
 		return firstThreePlanetsTriangle.perimeter();
 	}
 
 	
 	
-	private boolean sunAligment(long day) {
+	private boolean sunAligment(int day) {
 		if(numberOfplanets()<=1) {
 			return true;
 		} else {
@@ -130,9 +130,9 @@ public class SolarSystem implements ISolarSystem {
 		
 	}
 	
-	private Line createLineBetweenFirstTwoPlanets(long day) {
-		Planet firstPlanet = getPlanets().get(0);
-		Planet secondPlanet = getPlanets().get(1);
+	private Line createLineBetweenFirstTwoPlanets(int day) {
+		IPlanet firstPlanet = getPlanets().get(0);
+		IPlanet secondPlanet = getPlanets().get(1);
 		PolarCoord positionFirstPlanet = firstPlanet.positionAtDay(day);
 		PolarCoord positionSecondPlanet = secondPlanet.positionAtDay(day);
 		Line lineFirstTwoPlanets = new Line (positionFirstPlanet, positionSecondPlanet );

@@ -1,6 +1,6 @@
-package com.olguin.vulcano.math;
+package com.olguin.solarsystem.math;
 
-import com.olguin.vulcanosim.model.ISolarSystem;
+import com.olguin.solarsystem.model.ISolarSystem;
 
 public class PolarCoord {
 	public static final double PI_2 = Math.PI/2;

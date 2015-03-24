@@ -1,4 +1,4 @@
-package com.olguin.vulcanosim.model;
+package com.olguin.solarsystem.model;
 
 public enum Weather {
  Draught ("Sequia"), 

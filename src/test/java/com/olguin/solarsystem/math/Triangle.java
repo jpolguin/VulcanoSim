@@ -1,4 +1,7 @@
-package com.olguin.vulcano.math;
+package com.olguin.solarsystem.math;
+
+import com.olguin.solarsystem.math.CartesianCoord;
+import com.olguin.solarsystem.math.PolarCoord;
 
 public class Triangle {
 

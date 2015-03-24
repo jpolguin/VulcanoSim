@@ -1,4 +1,4 @@
-package com.olguin.vulcano.math;
+package com.olguin.solarsystem.math;
 
 public class VerticalLineException extends RuntimeException {
 

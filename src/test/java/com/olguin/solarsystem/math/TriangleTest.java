@@ -1,9 +1,10 @@
-package com.olguin.vulcano.math;
+package com.olguin.solarsystem.math;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.olguin.vulcanosim.model.SolarSystem;
+import com.olguin.solarsystem.math.CartesianCoord;
+import com.olguin.solarsystem.model.SolarSystem;
 
 public class TriangleTest {
 

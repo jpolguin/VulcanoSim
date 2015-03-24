@@ -1,10 +1,10 @@
-package com.olguin.vulcanosim.model;
+package com.olguin.solarsystem.model;
 
-import com.olguin.vulcano.math.PolarCoord;
+import com.olguin.solarsystem.math.PolarCoord;
 
 
 
-public class Planet {
+public class Planet implements IPlanet {
 
 	public static final double ANGULAR_ONE_GRADE_CLOCKWISE = -PolarCoord.PI_180;
 	public static final double ANGULAR_THREE_GRADE_CLOCKWISE = -PolarCoord.PI_180 * 3;
@@ -25,11 +25,19 @@ public class Planet {
 		_angularVelocity = angularVelocity;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.olguin.vulcanosim.model.IPlanet#getInitialPosition()
+	 */
+	@Override
 	public PolarCoord getInitialPosition() {
 		
 		return _initialPosition;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.olguin.vulcanosim.model.IPlanet#getAngularVelocity()
+	 */
+	@Override
 	public double getAngularVelocity() {
 		
 		return _angularVelocity;
@@ -37,14 +45,22 @@ public class Planet {
 
 	
 
-	public PolarCoord positionAtDay(long day) {
+	/* (non-Javadoc)
+	 * @see com.olguin.vulcanosim.model.IPlanet#positionAtDay(int)
+	 */
+	@Override
+	public PolarCoord positionAtDay(int day) {
 		
 		 return new PolarCoord(getInitialPosition().getRadius(), getInitialPosition().getAngularPosInRads() + getAngularVelocity() * day);
 	}
 
-	public long revolutionPeriodInDays() {
+	/* (non-Javadoc)
+	 * @see com.olguin.vulcanosim.model.IPlanet#revolutionPeriodInDays()
+	 */
+	@Override
+	public int revolutionPeriodInDays() {
 		
-		return  Math.abs(Math.round(PolarCoord.TWO_PI /getAngularVelocity())) ;
+		return  (int) Math.abs(Math.round(PolarCoord.TWO_PI /getAngularVelocity())) ;
 	}
 	
 	

@@ -1,12 +1,12 @@
-package com.olguin.vulcano.math;
+package com.olguin.solarsystem.math;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.olguin.vulcano.math.CartesianCoord;
-import com.olguin.vulcano.math.Line;
-import com.olguin.vulcano.math.VerticalLineException;
-import com.olguin.vulcanosim.model.ISolarSystem;
+import com.olguin.solarsystem.math.CartesianCoord;
+import com.olguin.solarsystem.math.Line;
+import com.olguin.solarsystem.math.VerticalLineException;
+import com.olguin.solarsystem.model.ISolarSystem;
 
 public class LineTest {
 

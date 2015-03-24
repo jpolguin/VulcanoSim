@@ -1,10 +1,14 @@
-package com.olguin.vulcanosim.model;
+package com.olguin.solarsystem.model;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.olguin.vulcano.math.PolarCoord;
+import com.olguin.solarsystem.math.PolarCoord;
+import com.olguin.solarsystem.model.ISolarSystem;
+import com.olguin.solarsystem.model.Planet;
+import com.olguin.solarsystem.model.SolarSystem;
+import com.olguin.solarsystem.model.Weather;
 
 public class SolarSistemTest {
 

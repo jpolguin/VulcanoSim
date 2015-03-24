@@ -1,4 +1,4 @@
-package com.olguin.vulcanosim.model;
+package com.olguin.solarsystem.model;
 
 public interface ISolarSystem {
 
@@ -20,7 +20,7 @@ public interface ISolarSystem {
      * @param day The day the planet alignment is analyzed
      * @return true if all the planets in the solar system are aligned along a straight line with a tolerance of PRECISION_DELTA
      */
-	public abstract boolean planetsAlignedAt(long day);
+	public abstract boolean planetsAlignedAt(int day);
 
 	
 	/**
@@ -28,7 +28,7 @@ public interface ISolarSystem {
 	 * @param day the day the planet alignment is analyzed
 	 * @return true if all planets and The Sun are aligned along a straight line with a tolerance of PRECISION_DELTA
 	 */
-	public abstract boolean solarAligmentAt(long day);
+	public abstract boolean solarAligmentAt(int day);
 
     /**
      * Analyze whether the sun falls into the triangle formed by the first 3 planets in the planetary system, as specified when 
@@ -36,20 +36,20 @@ public interface ISolarSystem {
      * @param day the day the analysis is taken place
      * @return true if the sun falls into the triangle, false otherwise
      */
-	public abstract boolean sunInsideTriangleAtDay(long day);
+	public abstract boolean sunInsideTriangleAtDay(int day);
 
    /**
     * Analyze Solar System's condition to forecast possible weather according to orbits relations between planets and Sun
     * @param day  the day to analyze the solar system conditions
     * @return the likely weather that the system will have.
     */
-	public abstract Weather weatherAtDay(long day);
+	public abstract Weather weatherAtDay(int day);
 
     /**
      * Return the perimeter of the triangle formed with the first 3 planets of the Solar System
      * @param day day of the year to calculate the triangle perimeter.
      * @return the calculated perimeter
      */
-    public abstract double trianglePerimeterAtDay(long day);
+    public abstract double trianglePerimeterAtDay(int day);
 
 }

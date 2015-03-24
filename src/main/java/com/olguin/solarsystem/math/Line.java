@@ -1,6 +1,6 @@
-package com.olguin.vulcano.math;
+package com.olguin.solarsystem.math;
 
-import com.olguin.vulcanosim.model.ISolarSystem;
+import com.olguin.solarsystem.model.ISolarSystem;
 
 public class Line {
 	private double _mSlope;
@@ -82,8 +82,6 @@ public class Line {
 	private boolean sameXCoord(CartesianCoord coord1, CartesianCoord coord2) {
 		return equalsOrCloseEnough(coord1.x(), coord2.x());
 	}
-
-
 
 	public boolean pointAligned(PolarCoord polarPoint) {		
 		return pointAligned(polarPoint.toCartesianCoord());
